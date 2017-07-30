@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Dictionary</title>
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css"  href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/ui-grid.css" />
+    <link rel="stylesheet" type="text/css" href="css/site.css" />
+
+    <script type="text/javascript" src="scripts/angular/angular.js"></script>
+    <script type="text/javascript" src="scripts/angular/angular-touch.js"></script>
+    <script type="text/javascript" src="scripts/angular/angular-animate.js"></script>
+    <script type="text/javascript" src="scripts/csv.js"></script>
+    <script type="text/javascript" src="scripts/pdfmake.js"></script>
+    <script type="text/javascript" src="scripts/vfs_fonts.js"></script>
+    <script type="text/javascript" src="Scripts/ui-grid.js"></script>
+    <script type="text/javascript" src="Scripts/ui-bootstrap-tpls-2.5.0.js"></script>
+</head>
+<body>
+    <div ng-controller="DictCtrl" class="content">
+        
+        <div uib-alert ng-repeat="alert in alerts" dismiss-on-timeout="3000"
+            ng-class="'alert-' + (alert.type || 'warning')" class="ng-popup" 
+            close="closeAlert($index)">{{alert.msg}}</div>
+
+        <div class="grid">
+            <p>
+                <button type="button" class="btn btn-success btn-sm" 
+                    ng-click="editItem()">
+                    Edit <i class="glyphicon glyphicon-pencil"></i>
+                </button>
+            </p>
+        <div ui-grid="gridOptions"  
+            ui-grid-selection ui-grid-edit ui-grid-row-edit ui-grid-cellNav></div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="editModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Edit Information</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <div class="width-40 full-width-children" style="vertical-align: top;">
+                <h4>Keywords</h5>
+                <ul class="key-list">
+                    <li ng-repeat="item in $ctrl.items">
+                        <input type="text" ng-model="item.keyword" />
+                    </li>
+                </ul>
+            </div>
+            <div class="width-50 full-width-children">
+                <h4>Description</h5>
+                <textarea ng-model="$ctrl.desc" rows="6">
+                </textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>
+    </script>
+</body>
+    <script type="text/javascript" src="app/dictionary.js"></script>
+</html>
